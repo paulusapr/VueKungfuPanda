@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+echo 'Styling, testing and building your project before comitting'
+
+npm run test ||
+(
+    echo 'Yoo, there is still error on your components, Check Code
+    Run npm run test:unit, add changes and try commit again.';
+    false;
+)
+
+npm run lint ||
+(
+    echo 'Yoo, your code looks disgusting. Check linter
+    Run npm run lint, add changes and try commit again.';
+    false;
+)
+
+echo 'Yeayy, there is no error in your code... I am committing this now.'
+
+npx lint-staged
